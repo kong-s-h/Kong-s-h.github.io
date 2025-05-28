@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>粉嫩小站</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffd1dc, #ffb6c1);
+            font-family: 'Microsoft YaHei', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(255, 182, 193, 0.3);
+            backdrop-filter: blur(10px);
+            transition: transform 0.5s;
+        }
+
+        .container.active {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            color: #ff69b4;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+        }
+
+        p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #ff69b4, #ff8da1);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+            cursor: pointer;
+            border: none;
+            font-size: 1.1em;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        .button:active {
+            transform: translateY(1px);
+        }
+
+        .heart {
+            position: fixed;
+            animation: float 3s ease-in-out infinite;
+            color: #ff69b4;
+            font-size: 24px;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .message {
+            display: none;
+            text-align: center;
+            color: #ff69b4;
+            font-size: 1.2em;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>欢迎来到小歪甲想铺♡</h1>
+        <p>这是一个充满温暖和爱的空间，希望能带给你一天的好心情 ～</p>
+        <p>生活就像做一次美甲，即使是最平凡的日子，也要记得加一颗珍珠和一颗钻。</p>
+        <p style="text-align: center;">
+            <button class="button" onclick="startDay()">开启美好一天 ♪</button>
+        </p>
+        <p class="message">愿你的今天充满阳光和温暖，就像这个粉嫩的小世界一样美好 ♡</p>
+    </div>
+
+    <script>
+        let isFirstClick = true;  // 添加点击状态标记
+
+        // 创建漂浮的心形装饰
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '♡';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+
+        // 每隔一段时间创建一个新的心形
+        setInterval(createHeart, 2000);
+
+        // 点击按钮的效果
+        function startDay() {
+            const container = document.querySelector('.container');
+            const message = document.querySelector('.message');
+            const button = document.querySelector('.button');
+            
+            if (isFirstClick) {
+                // 第一次点击的效果
+                container.classList.add('active');
+                message.style.display = 'block';
+                
+                // 创建更多心形
+                for(let i = 0; i < 10; i++) {
+                    setTimeout(createHeart, i * 100);
+                }
+                
+                // 更新按钮文字
+                button.textContent = '点击进入温馨小屋 ♡';
+                
+                // 3秒后重置容器效果
+                setTimeout(() => {
+                    container.classList.remove('active');
+                }, 3000);
+                
+                isFirstClick = false;
+            } else {
+                // 第二次点击跳转到温馨小屋
+                window.location.href = 'wenxin.html';
+            }
+        }
+    </script>
+</body>
+</html>
